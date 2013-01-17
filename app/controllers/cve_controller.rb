@@ -140,7 +140,7 @@ class CveController < ApplicationController
     cves = params[:cves].split(',').map{|cve| Integer(cve)}
     logger.debug { "Assign Bug: #{bug_id} CVElist: " + cves.inspect }
 
-    if params[:comment] or params[:summary]
+    if params[:comment] == "true" or params[:summary] == "true"
       bug = Glsamaker::Bugs::Bug.load_from_id(bug_id)
       cve_ids = cves.map {|c| Cve.find(c).cve_id }
       changes = {}
