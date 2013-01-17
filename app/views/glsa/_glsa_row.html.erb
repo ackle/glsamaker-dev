@@ -9,6 +9,7 @@
     <%= approval_icon glsa.approval_status %>
     <%= workflow_icon(glsa.workflow_status(current_user)) %>
     <%= restricted_icon glsa.restricted %>
+    <%= reviewready_icon glsa.reviewready %>
   </td>
   <% if view == :requests %>
     <td><strong><%= link_to(glsa.last_revision.title, {:controller => 'glsa', :action => 'edit', :id => glsa}, {:title => "Draft this GLSA"}) %></strong></td>

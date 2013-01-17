@@ -92,6 +92,14 @@ module GlsaHelper
     end
   end
 
+  def reviewready_icon(status)
+    if status
+      image_tag "icons/glsa_ready.png", :title => "This item is ready for review."
+    else
+      image_tag "icons/glsa_draft.png", :title => "This item is NOT ready for review."
+    end
+  end
+
   def check_icon(status)
     if status
       image_tag "icons/ok.png", :title => "All checks passed"

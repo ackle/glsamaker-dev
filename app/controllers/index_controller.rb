@@ -15,6 +15,7 @@ class IndexController < ApplicationController
   
   def index
     @my_drafts = Glsa.where(:status => 'draft', :submitter => current_user.id).order("updated_at DESC").limit(10)
+    @my_review_drafts = Glsa.where('glsas.status = ? AND glsas.reviewready = ? AND glsas.submitter != ?', 'draft', '1', current_user.id).order("updated_at DESC")
     @pageTitle = "Welcome"
   end
   

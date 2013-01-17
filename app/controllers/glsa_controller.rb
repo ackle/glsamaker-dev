@@ -292,6 +292,12 @@ class GlsaController < ApplicationController
     
   end
 
+  def toggle_reviewready
+    @glsa = Glsa.find(params[:id])
+    @glsa.toggle!(:reviewready)
+    redirect_to :back
+  end
+
   def prepare_release
     @glsa = Glsa.find(params[:id])
     return unless check_object_access!(@glsa)

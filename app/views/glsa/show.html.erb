@@ -28,11 +28,19 @@
       <%= approval_icon @glsa.approval_status %>
       <%= workflow_icon(@glsa.workflow_status(current_user)) %>
       <%= restricted_icon @glsa.restricted %>
+      <%= reviewready_icon @glsa.reviewready %>
     </h2><br />
     <% if @glsa.is_approved? and @glsa.last_revision.bug_ready? %>
       <p><%= image_tag 'icons/ok.png' %> This draft is <strong>ready for sending</strong>.</p>
     <% else %>
       <p><%= image_tag 'icons/pending.png' %> This draft is <strong>not ready for sending.</strong></p>
+      <% if @glsa.status == 'draft' %>
+        <% if @glsa.reviewready? %>
+          <p>This draft is <strong><%= link_to "READY for review", toggle_reviewready_glsa_path(@glsa), :confirm => "Would you like to mark this draft NOT ready for review?" %>.</strong></p>
+        <% else %>  
+          <p>This draft is <strong><%= link_to "NOT ready for review", toggle_reviewready_glsa_path(@glsa), :confirm => "Would you like to mark this draft ready for review?" %>.</strong></p>
+        <% end %>
+      <% end %>
     <% end %>
     <p>
       <span style="float: right; font-size: 90%;"><%= @glsa.created_at.to_s %></span>
@@ -49,7 +57,7 @@
       Editor: <strong><%= @rev.user.to_s %></strong>
     </p>
   </div>
-  
+
   <div class="box">
     <%= box_title("Bugs (#{@rev.bugs.count})", :icon => 'icons/bug.png',
         :toolbar => [{:title => 'Update all cached metadata', :icon => 'icons/refresh.png', :uri => "/glsa/update_cache/#{@glsa.id}"}])

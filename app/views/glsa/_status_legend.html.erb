@@ -29,10 +29,16 @@
     <%= workflow_icon :approved %> You have approved
   </span>
 
-  <span class="column last">
+  <span class="column">
     <strong>Embargo</strong><br />
     <%= restricted_icon false %> public<br />
     <%= restricted_icon true %> confidential
+  </span>
+
+  <span class="column last">
+    <strong>Review Status</strong><br />
+    <%= reviewready_icon false %> Not ready for review<br />
+    <%= reviewready_icon true %> Ready for review<br />
   </span>
   <br class="clear" />
 </div>
