@@ -158,6 +158,21 @@ class CveController < ApplicationController
     render :text => e.message, :status => 500
   end
 
+  def new_preview
+    render :layout => false
+  rescue Exception => e
+    log_error e
+    render :text => e.message, :status => 500
+  end
+
+  def new_cve
+    Cve.new_cve(params[:cve_num], params[:cve_summary], current_user)
+    render :text => "ok"
+  rescue Exception => e
+    log_error e
+    render :text => e.message, :status => 500
+  end
+
   def nfu
     @cves = params[:cves].split(',').map{|cve| Integer(cve)}
     logger.debug { "NFU CVElist: " + @cves.inspect + " Reason: " + params[:reason] }

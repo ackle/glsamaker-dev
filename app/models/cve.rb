@@ -76,6 +76,21 @@ class Cve < ActiveRecord::Base
     save!
   end
   
+  def self.new_cve(cve_num, cve_summary, user)
+    @n = self.create!(
+      :cve_id => cve_num, 
+      :summary => cve_summary,
+      :state => 'NEW'
+    )
+
+    CveChange.create!(
+      :cve_id => @n.id,
+      :user => user,
+      :action => 'new',
+      :object => ''
+    )
+  end
+
   # Mark the CVE as Not-For-Us, creating a history entry
   def nfu(user, reason = nil)
     self.cve_changes.create!(
