@@ -148,7 +148,12 @@
     <td>
       <ul>
         <% @rev.references.each do |r| %>
-          <li><%= link_to r.title, r.url -%></li>
+          <li>
+            <%= link_to r.title, r.url -%> 
+            <% if r.title =~ /^CVE-\d{4}-\d{4}/ %>
+             <small> <%= link_to_function "[CVETool]", "cvepopup('#{r.title}')" %></small>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     </td>
