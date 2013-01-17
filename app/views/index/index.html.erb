@@ -1,7 +1,11 @@
 <h1>Welcome to GLSAMaker2!</h1>
 
+<span class="floatright">
+Show <%= select_tag :per_page, options_for_select([10,25,50], @per_page), :onchange => "if(this.value){window.location='?per_page='+this.value;}" %> Drafts
+</span>
+
 <div class="box">
-  <h2>My last 10 drafts</h2>
+  <h2>My last <%= @per_page %> drafts</h2>
   
   <table class="glsamaker-table">
   <tr align="left">
